@@ -81,6 +81,25 @@ export default function Hero({
       id="hero"
       className="relative flex items-center justify-center min-h-screen bg-linear-to-b from-background via-background to-secondary/30"
     >
+      <div className="min-h-screen w-full bg-white absolute inset-0 overflow-hidden">
+        {/*  Diagonal Cross Grid Top Background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+        linear-gradient(45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%)
+      `,
+            backgroundSize: "40px 40px",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+            maskImage:
+              "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+          }}
+        />
+        {/* Your Content/Components */}
+      </div>
+
       {/* Background */}
       <Image
         src={backgroundImage}
