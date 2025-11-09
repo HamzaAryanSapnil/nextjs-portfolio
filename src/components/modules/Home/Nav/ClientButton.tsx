@@ -1,41 +1,55 @@
-// components/ClientButton.tsx
 "use client";
 
-import React from "react";
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 import { toggleMobileMenu } from "@/redux/slice";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "@/redux/hook/useRedux";
 
 export default function ClientButton() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((s) => s.ui.isMobileMenuOpen);
 
+  const handleToggle = () => {
+    dispatch(toggleMobileMenu());
+  };
+
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="icon"
       aria-expanded={isOpen}
       aria-label={isOpen ? "Close menu" : "Open menu"}
-      className="md:hidden p-2 rounded-lg focus:outline-none"
-      onClick={() => dispatch(toggleMobileMenu())}
+      className="md:hidden relative"
+      onClick={handleToggle}
     >
-      {/* Simple icon (you can replace with lucide/react icons) */}
-      <span className="sr-only">{isOpen ? "Close menu" : "Open menu"}</span>
-      <div className="w-6 h-6 relative">
-        <span
-          className={`block h-0.5 w-6 transform transition ${
-            isOpen ? "rotate-45 translate-y-2" : "-translate-y-1.5"
-          }`}
-        ></span>
-        <span
-          className={`block h-0.5 w-6 my-1 transition ${
-            isOpen ? "opacity-0" : "opacity-100"
-          }`}
-        ></span>
-        <span
-          className={`block h-0.5 w-6 transform transition ${
-            isOpen ? "-rotate-45 -translate-y-2" : "translate-y-1.5"
-          }`}
-        ></span>
-      </div>
-    </button>
+      <AnimatePresence mode="wait" initial={false}>
+        {isOpen ? (
+          <motion.span
+            key="close"
+            initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <X size={24} />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="menu"
+            initial={{ opacity: 0, rotate: 90, scale: 0.8 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: -90, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <Menu size={24} />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </Button>
   );
 }

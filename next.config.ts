@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     turbopackFileSystemCacheForDev: true,
+  },
+  images: {
+    domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
   }
 };
 

@@ -1,12 +1,12 @@
-import PublicNav from "@/components/shared/PublicNav";
+import Hero from "@/components/modules/Home/Hero";
+
 
 
 
 export default function Home() {
   return (
    <>
-   <PublicNav/>
-    this is home
+    <Hero/>
    </>
   );
 }

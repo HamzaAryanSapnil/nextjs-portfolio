@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/redux/hook/useRedux";
 import ClientButton from "../modules/Home/Nav/ClientButton";
 import PublicMobileNav from "../modules/Home/Nav/PublicMobileNav";
 import { ModeToggle } from "../toggle-theme";
-
+import { Button } from "../ui/button";
 
 export const navItems = [
   {
@@ -53,20 +53,22 @@ export default function PublicNav() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center  space-x-8">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className="text-sm font-medium hover: transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <ModeToggle/>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+
+          <Button className=" rounded-md text-sm font-medium transition-colors">
             Login
-          </button>
+          </Button>
+
+          <ModeToggle />
         </nav>
 
         {/* Mobile Menu Button */}
