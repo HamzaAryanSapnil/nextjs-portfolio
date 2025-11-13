@@ -57,7 +57,7 @@ export default function Hero({
   secondaryButton = { text: "Contact Me", href: "#contact" },
   socialLinks = { github: "#", linkedin: "#", twitter: "#" },
   profileImage = "/profile.png",
-  backgroundImage = "/hero-bg.jpg",
+  backgroundImage = "",
 }: HeroProps) {
   const router = useRouter();
 
@@ -100,14 +100,7 @@ export default function Hero({
         {/* Your Content/Components */}
       </div>
 
-      {/* Background */}
-      <Image
-        src={backgroundImage}
-        alt="Background"
-        fill
-        priority
-        className="object-cover object-center opacity-5 -z-10"
-      />
+     
 
       {/* Glow overlay */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background/95 via-background/80 to-background/70" />

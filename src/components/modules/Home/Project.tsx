@@ -49,7 +49,7 @@ export function Projects({
 
   return (
     <section className="w-full py-20 px-4" id="projects">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         {showHeader && (
           <motion.div
             initial="hidden"

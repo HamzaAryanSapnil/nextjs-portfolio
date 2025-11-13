@@ -18,12 +18,26 @@ interface ProjectCardProps {
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" },
+    transition: { duration: 0.45, delay: i * 0.1, ease: "easeOut" },
   }),
+};
+
+const overlayVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+};
+
+const textSlideUp: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.35, ease: "easeOut" },
+  },
 };
 
 export function ProjectCard({
@@ -43,11 +57,12 @@ export function ProjectCard({
       viewport={{ once: true, margin: "-60px" }}
       custom={index}
     >
-      <Card className="overflow-hidden group hover:shadow-md transition-all duration-300">
-        <div className="relative h-48 sm:h-56 overflow-hidden">
+      <Card className="overflow-hidden group relative border border-border shadow-sm hover:shadow-lg transition-all duration-300">
+        {/* Image Container */}
+        <div className="relative h-52 sm:h-64 overflow-hidden">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4 }}
             className="relative w-full h-full"
           >
             <Image
@@ -58,12 +73,59 @@ export function ProjectCard({
               sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
             />
           </motion.div>
+
+          {/* Overlay Effect */}
+          <motion.div
+            initial="hidden"
+            whileHover="visible"
+            variants={overlayVariants}
+            className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6"
+          >
+            <motion.div variants={textSlideUp} className="space-y-3">
+              <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+              <div className="flex gap-3">
+                {liveUrl && (
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="secondary"
+                    className="text-xs"
+                  >
+                    <Link
+                      href={liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink size={14} className="mr-1" />
+                      Live
+                    </Link>
+                  </Button>
+                )}
+                {codeUrl && (
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="text-xs"
+                  >
+                    <Link
+                      href={codeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github size={14} className="mr-1" />
+                      Code
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
 
+        {/* Content */}
         <CardContent className="p-6 space-y-4">
-          <h3 className="text-lg font-semibold">{title}</h3>
           <p className="text-sm text-muted-foreground">{description}</p>
-
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, i) => (
               <span
@@ -73,37 +135,6 @@ export function ProjectCard({
                 {tech}
               </span>
             ))}
-          </div>
-
-          <div className="flex items-center justify-between pt-4">
-            <div className="flex gap-3">
-              {liveUrl && (
-                <Button asChild size="sm" variant="outline">
-                  <Link
-                    href={liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1"
-                  >
-                    <ExternalLink size={14} />
-                    Live Demo
-                  </Link>
-                </Button>
-              )}
-              {codeUrl && (
-                <Button asChild size="sm" variant="ghost">
-                  <Link
-                    href={codeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1"
-                  >
-                    <Github size={14} />
-                    Code
-                  </Link>
-                </Button>
-              )}
-            </div>
           </div>
         </CardContent>
       </Card>

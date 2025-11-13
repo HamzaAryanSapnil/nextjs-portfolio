@@ -7,8 +7,15 @@ const nextConfig: NextConfig = {
     turbopackFileSystemCacheForDev: true,
   },
   images: {
-    domains: ["images.unsplash.com", "avatars.githubusercontent.com"],
-  }
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "***",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -381,6 +381,7 @@ export default function Skills({
 }: SkillsProps) {
   return (
     <section
+    id="skills"
       className="bg-secondary/30 w-full py-16 md:py-20 lg:py-28"
       aria-labelledby="skills-heading"
     >
