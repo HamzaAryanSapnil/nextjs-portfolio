@@ -64,9 +64,11 @@ export default function PublicNav() {
             </Link>
           ))}
 
-          <Button className=" rounded-md text-sm font-medium transition-colors">
-            Login
-          </Button>
+          <Link href="/login">
+            <Button className=" rounded-md text-sm font-medium transition-colors">
+              Login
+            </Button>
+          </Link>
 
           <ModeToggle />
         </nav>

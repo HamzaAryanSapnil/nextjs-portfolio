@@ -44,7 +44,7 @@ export function BlogCard({ post, index }: BlogCardProps) {
       className="group"
       aria-labelledby={`blog-${post.id}-title`}
     >
-      <Card className="overflow-hidden rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow">
+      <Card className="overflow-hidden rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow min-h-[600px]">
         {/* Image */}
         <div className="relative h-48 overflow-hidden">
           <motion.div
@@ -74,12 +74,16 @@ export function BlogCard({ post, index }: BlogCardProps) {
             id={`blog-${post.id}-title`}
             className="text-lg font-semibold text-card-foreground line-clamp-2 group-hover:text-primary transition-colors"
           >
-            {post.title}
+            {post?.title?.length > 60
+              ? `${post.title.slice(0, 60)}...`
+              : post.title}
           </h3>
 
           {/* Description */}
           <p className="text-sm text-muted-foreground line-clamp-3">
-            {post.description}
+            {post?.description?.length > 100
+              ? `${post.description.slice(0, 100)}...`
+              : post.description}
           </p>
 
           {/* Meta */}
