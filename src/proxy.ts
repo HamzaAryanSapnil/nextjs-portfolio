@@ -1,0 +1,89 @@
+import { type NextRequest, NextResponse } from "next/server";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { cookies } from "next/headers";
+import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute, UserRole } from "./lib/auth-utils";
+import { deleteCookie } from "./services/auth/tokenHandler";
+
+
+export async function proxy(request: NextRequest) {
+ 
+  const pathname = request.nextUrl.pathname;
+
+  const accessToken = request.cookies.get("accessToken")?.value || null;
+
+  let userRole: UserRole | null = null;
+
+  if (accessToken) {
+    const verifiedToken: JwtPayload | string = jwt.verify(
+      accessToken,
+      process.env.JWT_SECRET as string
+    );
+
+    if (typeof verifiedToken === "string") {
+      await deleteCookie("accessToken")
+      await deleteCookie("refreshToken")
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    userRole = verifiedToken.role as UserRole;
+    console.log(
+      "Getting access token value and userRole inside if block of accessToken: ",
+      {
+        userRole,
+        accessToken,
+      }
+    );
+  }
+
+  const routeOwner = getRouteOwner(pathname);
+
+  const isAuth = isAuthRoute(pathname);
+  if (accessToken && isAuth) {
+    console.log("Inside if block of accessToken and isAuth", {
+      isAuth,
+      accessToken,
+    });
+    return NextResponse.redirect(
+      new URL(getDefaultDashboardRoute(userRole), request.url)
+    );
+  }
+
+  if (routeOwner === null) {
+    return NextResponse.next();
+  }
+
+  if (!accessToken) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirect", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  if (routeOwner === "COMMON") {
+    return NextResponse.next();
+  }
+
+  if (routeOwner === "ADMIN") {
+    if (userRole !== routeOwner) {
+      return NextResponse.redirect(
+        new URL(getDefaultDashboardRoute(userRole), request.url)
+      );
+    }
+    return NextResponse.next();
+  }
+
+  console.log("pathname: ", request.nextUrl.pathname);
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)",
+  ],
+};
