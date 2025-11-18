@@ -128,7 +128,7 @@ export const loginAdmin = async (
           redirect(`${getDefaultDashboardRoute(userRole)}/?logged-in=true`);
         }
       } else {
-        redirect("/?logged-in=true");
+        redirect("/admin/dashboard?logged-in=true");
       }
     }
   } catch (err: any) {

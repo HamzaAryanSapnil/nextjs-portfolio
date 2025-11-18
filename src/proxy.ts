@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { cookies } from "next/headers";
+
 import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute, UserRole } from "./lib/auth-utils";
 import { deleteCookie } from "./services/auth/tokenHandler";
 

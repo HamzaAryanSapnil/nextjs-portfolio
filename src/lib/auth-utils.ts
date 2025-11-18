@@ -10,7 +10,7 @@ interface RouteConfig {
 const authRoutes = ["/login", "forget-password", "/reset-password"];
 
 const commonProtectedRoutes: RouteConfig = {
-  exact: ["/profile", "/settings"],
+  exact: ["/profile", "/settings", "/change-password"],
 };
 
 const adminProtectedRoutes: RouteConfig = {
