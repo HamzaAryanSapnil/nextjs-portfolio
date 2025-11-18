@@ -1,17 +1,13 @@
 // components/PublicNav.tsx
-"use client";
 
 import Link from "next/link";
 import ClientNavHeader from "./ClientNavHeader";
-
-import React from "react";
-
-import { setIsScrolled } from "@/redux/slice";
-import { useAppDispatch } from "@/redux/hook/useRedux";
 import ClientButton from "../modules/Home/Nav/ClientButton";
 import PublicMobileNav from "../modules/Home/Nav/PublicMobileNav";
 import { ModeToggle } from "../toggle-theme";
 import { Button } from "../ui/button";
+import { getCookie } from "@/services/auth/tokenHandler";
+import LogoutBtn from "./LogoutBtn";
 
 export const navItems = [
   {
@@ -32,18 +28,9 @@ export const navItems = [
   },
 ];
 
-export default function PublicNav() {
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      if (typeof window === "undefined") return;
-      dispatch(setIsScrolled(window.scrollY > 10));
-    };
-    handleScroll(); // set initial
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [dispatch]);
+export default async function PublicNav() {
+  const accessToken = await getCookie("accessToken");
+  console.log("access token from homepage: ", accessToken);
 
   return (
     <ClientNavHeader>
@@ -64,11 +51,15 @@ export default function PublicNav() {
             </Link>
           ))}
 
-          <Link href="/login">
-            <Button className=" rounded-md text-sm font-medium transition-colors">
-              Login
-            </Button>
-          </Link>
+          {accessToken ? (
+            <LogoutBtn />
+          ) : (
+            <Link href="/login">
+              <Button className=" rounded-md text-sm font-medium transition-colors">
+                Login
+              </Button>
+            </Link>
+          )}
 
           <ModeToggle />
         </nav>

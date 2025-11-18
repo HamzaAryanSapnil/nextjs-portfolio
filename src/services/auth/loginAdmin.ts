@@ -83,7 +83,6 @@ export const loginAdmin = async (
     console.log("Access Token Object: ", accessTokenObject);
     console.log("Refresh Token Object: ", refreshTokenObject);
 
-    
     await setCookie("accessToken", accessTokenObject.accessToken, {
       httpOnly: true,
       maxAge: parseInt(accessTokenObject["Max-Age"]) || 1000 * 60 * 60,
@@ -118,19 +117,18 @@ export const loginAdmin = async (
       const userRole: UserRole = verifiedToken.role as UserRole;
 
       if (!result.success) {
-        throw new Error("Invalid credentials");
+        throw new Error(result.message || "Invalid credentials");
       }
 
       if (redirectTo) {
         const requestedPath = redirectTo.toString();
-        console.log({ requestedPath, userRole });
         if (isValidRedirectForRole(requestedPath, userRole)) {
-          redirect(requestedPath);
+          redirect(`${requestedPath}/?logged-in=true`);
         } else {
-          redirect(getDefaultDashboardRoute(userRole));
+          redirect(`${getDefaultDashboardRoute(userRole)}/?logged-in=true`);
         }
       } else {
-        redirect("/");
+        redirect("/?logged-in=true");
       }
     }
   } catch (err: any) {
@@ -142,7 +140,9 @@ export const loginAdmin = async (
       success: false,
       message:
         err instanceof Error
-          ? err.message
+          ? process.env.NODE_ENV === "development"
+            ? err.message
+            : "Invalid Credentials"
           : err instanceof ZodError
           ? err.issues.map((issue) => issue.message).join(", ")
           : "An unknown error occurred",

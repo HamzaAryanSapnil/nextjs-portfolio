@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from "@/redux/provider/ReduxProvider";
+import { Toaster } from "@/components/ui/sonner";
+import LogoutSuccessToast from "@/components/shared/LogoutSuccessToast";
+import LoginSuccessToast from "@/components/shared/LoginSuccessToast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +19,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hamza Aryan Sapnil - Portfolio",
-  description: "Welcome to my portfolio website where I showcase my projects and skills.",
+  description:
+    "Welcome to my portfolio website where I showcase my projects and skills.",
 };
 
 export default function RootLayout({
@@ -37,6 +41,9 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster position="top-right" richColors />
+            <LoginSuccessToast />
+            <LogoutSuccessToast />
           </ThemeProvider>
         </ReduxProvider>
       </body>

@@ -3,14 +3,14 @@
 // components/auth/LoginFormClient.tsx
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { toast, Toaster } from "sonner";
-import { Eye } from "lucide-react";
+
 import { loginAdmin } from "@/services/auth/loginAdmin";
+import { toast } from "sonner";
 
 export default function LoginFormClient({ redirect }: { redirect?: string }) {
   const router = useRouter();
@@ -28,9 +28,16 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
     }
   };
 
+  useEffect(() => {
+    if (state && !state?.success && state?.message) {
+      toast.error(state?.message);
+    }
+
+    // return () => {};
+  }, [state]);
+
   return (
     <>
-      <Toaster position="top-right" richColors />
       <form action={formAction} className="space-y-4">
         {redirect && <input type="hidden" name="redirect" value={redirect} />}
         <div>
