@@ -12,6 +12,9 @@ import {
   UserRole,
 } from "@/lib/auth-utils";
 import { setCookie } from "./tokenHandler";
+import { serverFetch } from "@/lib/server-fetch";
+import { zodValidator } from "@/lib/zodValidator";
+import { loginValidationZodSchema } from "@/zod/auth.validation";
 
 const loginValidationSchema = z.object({
   email: z.email({ error: "Invalid email address" }),
@@ -26,31 +29,45 @@ export const loginAdmin = async (
     const redirectTo = formData.get("redirect") as string | null;
     let accessTokenObject: null | any = null;
     let refreshTokenObject: null | any = null;
-    const validatedFields = loginValidationSchema.safeParse({
+    
+    const payload = {
       email: formData.get("email"),
       password: formData.get("password"),
-    });
+    };
+    
+    
+    // const validatedFields = loginValidationSchema.safeParse({
+    //   email: formData.get("email"),
+    //   password: formData.get("password"),
+    // });
 
-    if (!validatedFields.success) {
-      return {
-        success: false,
-        errors: validatedFields.error.issues.map((issue) => ({
-          field: issue.path[0],
-          message: issue.message,
-        })),
-      };
-    }
+    // if (!validatedFields.success) {
+    //   return {
+    //     success: false,
+    //     errors: validatedFields.error.issues.map((issue) => ({
+    //       field: issue.path[0],
+    //       message: issue.message,
+    //     })),
+    //   };
+    // }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: validatedFields.data.email,
-        password: validatedFields.data.password,
-      }),
-    });
+       if (zodValidator(payload, loginValidationZodSchema).success === false) {
+         return zodValidator(payload, loginValidationZodSchema);
+       }
+
+       const validatedPayload = zodValidator(
+         payload,
+         loginValidationZodSchema
+       ).data;
+
+
+    const res = await serverFetch.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+      {
+        method: "POST",
+        body: JSON.stringify(validatedPayload),
+      }
+    );
 
     const setCookieHeaders = res.headers.getSetCookie();
 
