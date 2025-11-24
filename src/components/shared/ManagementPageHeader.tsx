@@ -36,6 +36,7 @@ const ManagementPageHeader = ({
         </Button>
       )}
       {children}
+      
     </div>
   );
 };

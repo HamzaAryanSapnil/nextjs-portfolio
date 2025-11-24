@@ -15,14 +15,18 @@ import { logout } from "@/services/auth/logout";
 import { UserInfo } from "@/types/user.interface";
 import { Settings, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface UserDropdownProps {
   userInfo: UserInfo;
 }
 
 const UserDropdown = ({ userInfo }: UserDropdownProps) => {
+  const router = useRouter()
   const handleLogout = async () => {
+
     await logout();
+    router.push("/");
   };
   return (
     <DropdownMenu>

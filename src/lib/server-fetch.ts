@@ -1,50 +1,64 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCookie } from "@/services/auth/tokenHandler";
 
-const BACKEND_API_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://my-portfolio-backend-peach.vercel.app/api/v1";
 
+const BACKEND_API_URL = process.env.API_URL;
+
+// /auth/login
 const serverFetchHelper = async (
   endpoint: string,
   options: RequestInit
 ): Promise<Response> => {
   const { headers, ...restOptions } = options;
-
   const accessToken = await getCookie("accessToken");
 
+  console.log("serverFetchHelper body: ", { body: options.body });
+
+  // const accessToken = await getCookie("accessToken");
+  console.log(
+    "serverFetchHelper backend api url and endpoint: ",
+    `${BACKEND_API_URL}${endpoint}`
+  );
   const response = await fetch(`${BACKEND_API_URL}${endpoint}`, {
     headers: {
       ...headers,
-
+      // ...(accessToken ? { "Authorization": `Bearer ${accessToken}` } : {}),
+      // ...(accessToken ? { "Authorization": accessToken } : {}),
       Cookie: accessToken ? `accessToken=${accessToken}` : "",
     },
     ...restOptions,
   });
+
   return response;
 };
 
 export const serverFetch = {
-  get: (endpoint: string, options?: RequestInit): Promise<Response> =>
+  get: async (endpoint: string, options: RequestInit = {}): Promise<Response> =>
     serverFetchHelper(endpoint, { ...options, method: "GET" }),
-  post: (
+
+  post: async (
     endpoint: string,
-    body: any,
-    options?: RequestInit
+    options: RequestInit = {}
   ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: "POST", body }),
-  put: (
+    serverFetchHelper(endpoint, { ...options, method: "POST" }),
+
+  put: async (endpoint: string, options: RequestInit = {}): Promise<Response> =>
+    serverFetchHelper(endpoint, { ...options, method: "PUT" }),
+
+  patch: async (
     endpoint: string,
-    body: any,
-    options?: RequestInit
+    options: RequestInit = {}
   ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: "PUT", body }),
-  patch: (
+    serverFetchHelper(endpoint, { ...options, method: "PATCH" }),
+
+  delete: async (
     endpoint: string,
-    body: any,
-    options?: RequestInit
+    options: RequestInit = {}
   ): Promise<Response> =>
-    serverFetchHelper(endpoint, { ...options, method: "PATCH", body }),
-  delete: (endpoint: string, options?: RequestInit): Promise<Response> =>
     serverFetchHelper(endpoint, { ...options, method: "DELETE" }),
 };
+
+/**
+ *
+ * serverFetch.get("/auth/me")
+ * serverFetch.post("/auth/login", { body: JSON.stringify({}) })
+ */

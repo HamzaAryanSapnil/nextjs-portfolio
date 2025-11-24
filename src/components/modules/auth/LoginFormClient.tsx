@@ -11,22 +11,15 @@ import { Button } from "@/components/ui/button";
 
 import { loginAdmin } from "@/services/auth/loginAdmin";
 import { toast } from "sonner";
+import { getInputFieldError } from "@/lib/getInputFieldError";
+import InputFieldError from "@/components/shared/InputFieldError";
 
 export default function LoginFormClient({ redirect }: { redirect?: string }) {
   const router = useRouter();
   const [state, formAction, isPending] = React.useActionState(loginAdmin, null);
 
   console.log("login state: ", state);
-  const getFieldsErrors = (field: string) => {
-    if (state && state?.errors) {
-      return (
-        state?.errors?.find((error: any) => error.field === field)?.message ||
-        ""
-      );
-    } else {
-      return null;
-    }
-  };
+
 
   useEffect(() => {
     if (state && !state?.success && state?.message) {
@@ -52,9 +45,7 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
             placeholder="admin@email.com"
             required
           />
-          {getFieldsErrors("email") && (
-            <p className="text-sm text-red-600">{getFieldsErrors("email")}</p>
-          )}
+          <InputFieldError field="email" state={state} />
         </div>
 
         <div>
@@ -69,11 +60,7 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
             autoComplete="current-password"
             required
           />
-          {getFieldsErrors("password") && (
-            <p className="text-sm text-red-600">
-              {getFieldsErrors("password")}
-            </p>
-          )}
+          <InputFieldError field="password" state={state} />
         </div>
 
         <div className="pt-2">

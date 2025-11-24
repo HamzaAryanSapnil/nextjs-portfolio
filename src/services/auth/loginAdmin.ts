@@ -36,20 +36,7 @@ export const loginAdmin = async (
     };
     
     
-    // const validatedFields = loginValidationSchema.safeParse({
-    //   email: formData.get("email"),
-    //   password: formData.get("password"),
-    // });
-
-    // if (!validatedFields.success) {
-    //   return {
-    //     success: false,
-    //     errors: validatedFields.error.issues.map((issue) => ({
-    //       field: issue.path[0],
-    //       message: issue.message,
-    //     })),
-    //   };
-    // }
+    
 
        if (zodValidator(payload, loginValidationZodSchema).success === false) {
          return zodValidator(payload, loginValidationZodSchema);
@@ -60,14 +47,16 @@ export const loginAdmin = async (
          loginValidationZodSchema
        ).data;
 
+      
 
-    const res = await serverFetch.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-      {
-        method: "POST",
-        body: JSON.stringify(validatedPayload),
-      }
-    );
+    const res = await serverFetch.post(`/auth/login`, {
+      body: JSON.stringify(validatedPayload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("response from login admin: ", res)
 
     const setCookieHeaders = res.headers.getSetCookie();
 

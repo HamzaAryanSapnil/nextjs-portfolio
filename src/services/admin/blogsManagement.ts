@@ -15,18 +15,52 @@ export async function createBlog(_prevState: any, formData: FormData) {
       description: formData.get("description"),
       content: formData.get("content"),
       category: formData.get("category"),
-      tags: formData?.getAll("tags"),
-      featuredImage: formData.get("featuredImage"),
+
     };
 
-    if (zodValidator(payload, createBlogZodSchema).success === false) {
-      return zodValidator(payload, createBlogZodSchema);
+    let blogData: any;
+    if (formData.get("file")) {
+      const file = formData.get("file");
+      const formDataImage = new FormData();
+      formDataImage.append("image", file as Blob);
+
+      const responseImage = await serverFetch.post(`${process.env.IMGBB_API}`, {
+        body: formDataImage,
+      });
+
+      const resultImage = await responseImage.json();
+      const imageLink = resultImage?.data?.image?.url;
+      console.log(imageLink);
+
+      blogData = {
+        title: formData.get("title"),
+        slug: formData.get("slug"),
+        description: formData.get("description"),
+        content: formData.get("content"),
+        category: formData.get("category"),
+        image: imageLink,
+      };
+      
+
     }
 
-    const validatedPayload = zodValidator(payload, createBlogZodSchema).data;
+    
+
+    if (zodValidator(blogData, createBlogZodSchema).success === false) {
+      return zodValidator(blogData, createBlogZodSchema);
+    }
+
+    const validatedPayload = zodValidator(blogData, createBlogZodSchema).data;
+
+    
+
+
+    
+    
 
     const response = await serverFetch.post("/blogs/create-blog", {
-      body: validatedPayload,
+      body: JSON.stringify(validatedPayload),
+      headers: { "Content-Type": "application/json" },
     });
 
     const result = await response.json();
