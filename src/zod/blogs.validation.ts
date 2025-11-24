@@ -5,8 +5,14 @@ export const createBlogZodSchema = z.object({
   description: z.optional(z.string().min(1)),
   content: z.optional(z.string().min(1)),
   category: z.optional(z.string().min(1)),
-  tags: z
-    .optional(z.array(z.string()).min(1, "Tags array cannot be empty"))
-    .default([]),
+  // tags: z
+  //   .optional(z.array(z.string()).min(1, "Tags array cannot be empty"))
+  //   .default([]),
   featuredImage: z.optional(z.string().min(1)),
 });
+
+export const updateBlogZodSchema = createBlogZodSchema.partial();
+
+export type UpdateBlogZodSchema = z.infer<typeof updateBlogZodSchema>;
+
+export type CreateBlogZodSchema = z.infer<typeof createBlogZodSchema>;

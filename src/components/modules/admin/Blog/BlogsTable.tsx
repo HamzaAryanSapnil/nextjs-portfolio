@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { blogsColumns } from "./BlogsColumn";
+import EditBlogFormDialog from "./EditBlogDialog";
 
 interface BlogTableProps {
   blogs: IBlog[];
@@ -19,6 +20,14 @@ const BlogsTable = ({ blogs }: BlogTableProps) => {
   const [deletingBlog, setDeletingBlog] =
     useState<IBlog | null>(null);
   const [isDeletingDialog, setIsDeletingDialog] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+   const [editingBlog, setEditingBlog] = useState<IBlog | null>(null);
+
+  const handleSuccess = () => {
+    startTransition(() => {
+      router.refresh();
+    });
+  };
 
   const handleRefresh = () => {
     startTransition(() => {
@@ -49,6 +58,15 @@ const BlogsTable = ({ blogs }: BlogTableProps) => {
     }
   };
 
+  const handleEdit = (blog: IBlog) => {
+    setEditingBlog(blog);
+    setIsDialogOpen(true);
+  };
+
+  if (!blogs?.length) {
+    return <p className="text-center">No blogs found</p>;
+  }
+
   return (
     <>
       <ManagementTable
@@ -56,9 +74,27 @@ const BlogsTable = ({ blogs }: BlogTableProps) => {
         columns={blogsColumns}
         onDelete={handleDelete}
         onView={handleView}
+        onEdit={handleEdit}
         getRowKey={(blog) => blog.id}
         emptyMessage="No blogs found"
       />
+
+      {/* Edit Blog Dialog */}
+      {editingBlog && (
+        <EditBlogFormDialog
+          open={isDialogOpen}
+          onClose={() => {
+            setIsDialogOpen(false);
+            // clear editing blog when dialog closes
+            setEditingBlog(null);
+          }}
+          onSuccess={() => {
+            handleSuccess();
+            setEditingBlog(null);
+          }}
+          blog={editingBlog}
+        />
+      )}
 
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmationDialog

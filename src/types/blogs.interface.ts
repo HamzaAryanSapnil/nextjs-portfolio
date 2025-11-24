@@ -5,9 +5,9 @@ export interface IBlog{
     description: string;
     content: string;
     category: string;
-    tags: string[];
+    tags?: string[];
     authorId?: string;
-    featuredImage: string;
+    featuredImage?: string;
     createdAt: string;
     updatedAt: string;
 }
