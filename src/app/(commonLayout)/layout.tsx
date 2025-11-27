@@ -1,3 +1,4 @@
+import { Footer } from "@/components/shared/Footer";
 import PublicNav from "@/components/shared/PublicNav";
 
 interface CommonLayoutProps {
@@ -9,6 +10,7 @@ const CommonLayout = ({ children }: CommonLayoutProps) => {
     <div>
       <PublicNav />
       {children}
+      <Footer />
     </div>
   );
 };

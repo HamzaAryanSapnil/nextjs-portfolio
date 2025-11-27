@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { getIconComponent } from "@/lib/icon-mapper";
@@ -27,7 +28,9 @@ const DashboardSidebarContent = ({
       {/* Logo/Brand */}
       <div className="flex h-16 items-center border-b px-6">
         <Link href={dashboardHome} className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">Portfolio Dashboard</span>
+          <span className="text-xl font-bold text-primary">
+            Portfolio Dashboard
+          </span>
         </Link>
       </div>
 
@@ -94,6 +97,11 @@ const DashboardSidebarContent = ({
             </p>
           </div>
         </div>
+        <Link href="/">
+          <Button className="w-full mt-4" variant="outline">
+            Home
+          </Button>
+        </Link>
       </div>
     </div>
   );

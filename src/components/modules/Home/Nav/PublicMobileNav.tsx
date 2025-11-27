@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 
@@ -8,8 +9,12 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook/useRedux";
 import { navItems } from "@/components/shared/PublicNav";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import LogoutBtn from "@/components/shared/LogoutBtn";
 
-export default function PublicMobileNav() {
+interface PublicMobileNavProps {
+  accessToken?: string
+}
+export default function PublicMobileNav({ accessToken }: PublicMobileNavProps) {
   const dispatch = useAppDispatch();
   const isMobileMenuOpen = useAppSelector((s) => s.ui.isMobileMenuOpen);
 
@@ -37,15 +42,15 @@ export default function PublicMobileNav() {
               </motion.a>
             ))}
 
-            <Link href="/login" >
-              <Button
-                onClick={() => dispatch(setMobileMenuOpen(false))}
-                className=" px-4 py-2 rounded-md text-sm font-medium transition-colors w-full"
-                // whileTap={{ scale: 0.97 }}
-              >
-                Login
-              </Button>
-            </Link>
+            {accessToken ? (
+              <LogoutBtn />
+            ) : (
+              <Link href="/login">
+                <Button className=" rounded-md text-sm font-medium transition-colors">
+                  Login
+                </Button>
+              </Link>
+            )}
           </nav>
         </motion.div>
       )}

@@ -8,31 +8,31 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
   return [
     {
       items: [
-        {
-          title: "Dashboard",
-          href: defaultDashboard,
-          icon: "LayoutDashboard",
-          role: UserRole.ADMIN,
-        },
+        // {
+        //   title: "Dashboard",
+        //   href: defaultDashboard,
+        //   icon: "LayoutDashboard",
+        //   role: UserRole.ADMIN,
+        // },
         {
           title: "My Profile",
-          href: `/profile`,
+          href: defaultDashboard,
           icon: "User",
           role: UserRole.ADMIN,
         },
       ],
     },
-    {
-      title: "Settings",
-      items: [
-        {
-          title: "Change Password",
-          href: "/change-password",
-          icon: "Settings", // ✅ String
-          role: UserRole.ADMIN,
-        },
-      ],
-    },
+    // {
+    //   title: "Settings",
+    //   items: [
+    //     {
+    //       title: "Change Password",
+    //       href: "/change-password",
+    //       icon: "Settings", // ✅ String
+    //       role: UserRole.ADMIN,
+    //     },
+    //   ],
+    // },
   ];
 };
 
@@ -43,12 +43,12 @@ export const adminNavItems: NavSection[] = [
   {
     title: "Blog Management",
     items: [
-      {
-        title: "Add a Blog",
-        href: "/admin/dashboard/create-blogs",
-        icon: "Book", // ✅ String
-        role: UserRole.ADMIN,
-      },
+      // {
+      //   title: "Add a Blog",
+      //   href: "/admin/dashboard/create-blogs",
+      //   icon: "Book", // ✅ String
+      //   role: UserRole.ADMIN,
+      // },
       {
         title: "Manage All Blogs",
         href: "/admin/dashboard/manage-blogs",

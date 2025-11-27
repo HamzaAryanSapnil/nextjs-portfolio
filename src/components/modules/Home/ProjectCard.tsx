@@ -57,7 +57,7 @@ export function ProjectCard({
       viewport={{ once: true, margin: "-60px" }}
       custom={index}
     >
-      <Card className="overflow-hidden group relative border border-border shadow-sm hover:shadow-lg transition-all duration-300">
+      <Card className="overflow-hidden group relative border border-border shadow-sm hover:shadow-lg transition-all duration-300 h-[450px]">
         {/* Image Container */}
         <div className="relative h-52 sm:h-64 overflow-hidden">
           <motion.div

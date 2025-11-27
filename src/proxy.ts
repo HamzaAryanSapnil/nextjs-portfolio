@@ -39,10 +39,6 @@ export async function proxy(request: NextRequest) {
 
   const isAuth = isAuthRoute(pathname);
   if (accessToken && isAuth) {
-    console.log("Inside if block of accessToken and isAuth", {
-      isAuth,
-      accessToken,
-    });
     return NextResponse.redirect(
       new URL(getDefaultDashboardRoute(userRole), request.url)
     );

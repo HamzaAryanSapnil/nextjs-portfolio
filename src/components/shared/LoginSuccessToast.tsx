@@ -16,5 +16,5 @@ export default function LoginSuccessToast() {
     }
   }, [searchParams, router]);
 
-  return <div>LoginSuccessToast</div>;
+  return <></>;
 }

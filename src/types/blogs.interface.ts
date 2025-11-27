@@ -11,3 +11,5 @@ export interface IBlog{
     createdAt: string;
     updatedAt: string;
 }
+
+// types/blog.ts

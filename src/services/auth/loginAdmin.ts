@@ -86,8 +86,7 @@ export const loginAdmin = async (
       throw new Error("Authentication tokens not found");
     }
 
-    console.log("Access Token Object: ", accessTokenObject);
-    console.log("Refresh Token Object: ", refreshTokenObject);
+    
 
     await setCookie("accessToken", accessTokenObject.accessToken, {
       httpOnly: true,
@@ -134,7 +133,7 @@ export const loginAdmin = async (
           redirect(`${getDefaultDashboardRoute(userRole)}/?logged-in=true`);
         }
       } else {
-        redirect("/admin/dashboard?logged-in=true");
+        redirect("/profile?logged-in=true");
       }
     }
   } catch (err: any) {

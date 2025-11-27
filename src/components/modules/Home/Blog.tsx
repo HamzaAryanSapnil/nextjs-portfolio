@@ -3,11 +3,14 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { BlogCard, BlogPost } from "./BlogCard";
+
 import { Button } from "@/components/ui/button";
+import { IBlog } from "@/types/blogs.interface";
+import BlogCard from "../blog/BlogCard";
+import Link from "next/link";
 
 interface BlogSectionProps {
-  posts: BlogPost[];
+  posts: IBlog[];
   label?: string;
   title?: string;
   description?: string;
@@ -91,7 +94,7 @@ export function BlogSection({
           variants={containerVariants}
         >
           {posts.map((post, i) => (
-            <BlogCard key={post.id} post={post} index={i} />
+            <BlogCard key={post.id} blog={post} />
           ))}
         </motion.div>
 
@@ -103,12 +106,14 @@ export function BlogSection({
             transition={{ duration: 0.45 }}
             className="text-center"
           >
-            <Button variant="ghost" onClick={onViewAll}>
-              <span className="inline-flex items-center gap-2">
-                <span>View All Articles</span>
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </Button>
+            <Link href="/blogs">
+              <Button variant="ghost">
+                <span className="inline-flex items-center gap-2">
+                  <span>View All Articles</span>
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </Button>
+            </Link>
           </motion.div>
         )}
       </div>

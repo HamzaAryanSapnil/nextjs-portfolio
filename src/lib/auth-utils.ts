@@ -74,7 +74,7 @@ const getDefaultDashboardRoute = (role: UserRole | null): string => {
   console.log("User Role from getDefaultDashboardRoute: ", role);
   switch (role) {
     case UserRole.ADMIN:
-      return "/admin/dashboard";
+      return "/profile";
     default:
       return "/";
   }

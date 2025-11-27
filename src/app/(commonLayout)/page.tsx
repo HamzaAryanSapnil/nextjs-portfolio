@@ -3,9 +3,11 @@ import { BlogSection } from "@/components/modules/Home/Blog";
 import Hero from "@/components/modules/Home/Hero";
 import { Projects } from "@/components/modules/Home/Project";
 import Skills from "@/components/modules/Home/Skills";
-import { Footer } from "@/components/shared/Footer";
 
-const projects = [
+import { serverFetch } from "@/lib/server-fetch";
+import { IBlog } from "@/types/blogs.interface";
+
+export const projects = [
   {
     id: "1",
     title: "E-Commerce Platform",
@@ -87,54 +89,26 @@ export interface BlogPost {
 }
 
 
-const blogPosts: BlogPost[] = [
-  {
-    id: "1",
-    title: "Getting Started with Next.js and TypeScript",
-    description:
-      "A comprehensive guide to setting up a new project with Next.js and TypeScript, including best practices and common pitfalls to avoid.",
-    category: "Web Development",
-    date: "June 15, 2023",
-    readTime: "8 min read",
-    image:
-      "https://images.unsplash.com/photo-1530563885674-66db50a1af19?q=80&w=2069&auto=format&fit=crop",
-    slug: "getting-started-nextjs-typescript",
-  },
-  {
-    id: "2",
-    title: "Building Scalable APIs with Node.js and Express",
-    description:
-      "Learn how to design and implement RESTful APIs that can handle high traffic and scale efficiently as your application grows.",
-    category: "Backend",
-    date: "May 22, 2023",
-    readTime: "10 min read",
-    image:
-      "https://images.unsplash.com/photo-1530563885674-66db50a1af19?q=80&w=2069&auto=format&fit=crop",
-    slug: "building-scalable-apis-nodejs-express",
-  },
-  {
-    id: "3",
-    title: "MongoDB vs PostgreSQL: Choosing the Right Database",
-    description:
-      "A detailed comparison of MongoDB and PostgreSQL, highlighting their strengths, weaknesses, and ideal use cases for different projects.",
-    category: "Databases",
-    date: "April 10, 2023",
-    readTime: "12 min read",
-    image:
-      "https://images.unsplash.com/photo-1530563885674-66db50a1af19?q=80&w=2069&auto=format&fit=crop",
-    slug: "mongodb-vs-postgresql-comparison",
-  },
-];
 
-export default function Home() {
+
+export default async function Home() {
+  // fetch blogs
+  const blogsRes = await serverFetch.get("/blogs");
+  const blogsJson = await blogsRes.json().catch(() => null);
+  
+  
+
+  
+
+  const blogs: IBlog[] = Array.isArray(blogsJson?.data) ? blogsJson.data : [];
   return (
     <>
       <Hero />
       <AboutMe />
       <Skills enableAnimations={true} heading="Technical Skills" />
       <Projects projects={projects} showViewAll viewAllUrl="/projects" />;
-      <BlogSection posts={blogPosts}  />
-      <Footer/>
+      <BlogSection posts={blogs}  />
+     
     </>
   );
 }

@@ -22,7 +22,7 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
         }
 
         const userInfo: UserInfo = {
-            name: verifiedToken.name || "Unknown User",
+            name: verifiedToken.name || "Hamza Aryan Sapnil",
             email: verifiedToken.email,
             role: verifiedToken.role,
         };

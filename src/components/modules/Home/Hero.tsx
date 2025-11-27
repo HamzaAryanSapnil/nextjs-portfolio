@@ -53,11 +53,10 @@ export default function Hero({
     "I build exceptional and accessible digital experiences for the web, focusing",
     "on clean code and modern development practices.",
   ],
-  primaryButton = { text: "View My Work", href: "#work" },
+  primaryButton = { text: "View My Work", href: "#projects" },
   secondaryButton = { text: "Contact Me", href: "#contact" },
   socialLinks = { github: "#", linkedin: "#", twitter: "#" },
   profileImage = "/profile.png",
-  backgroundImage = "",
 }: HeroProps) {
   const router = useRouter();
 
@@ -84,28 +83,44 @@ export default function Hero({
       <div className="min-h-screen w-full bg-white absolute inset-0 overflow-hidden">
         {/*  Diagonal Cross Grid Top Background */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 
+    [--pattern-bg:var(--background)]
+    [--pattern-color:var(--pattern-color)]
+  "
           style={{
+            backgroundColor: "var(--pattern-bg)",
+
             backgroundImage: `
-        linear-gradient(45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%),
-        linear-gradient(-45deg, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%)
-      `,
+      linear-gradient(
+        45deg,
+        transparent 49%,
+        var(--pattern-color) 49%,
+        var(--pattern-color) 51%,
+        transparent 51%
+      ),
+      linear-gradient(
+        -45deg,
+        transparent 49%,
+        var(--pattern-color) 49%,
+        var(--pattern-color) 51%,
+        transparent 51%
+      )
+    `,
+
             backgroundSize: "40px 40px",
+
             WebkitMaskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+              "radial-gradient(ellipse 100% 90% at 50% 0%, #000 80%, transparent 100%)",
             maskImage:
-              "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+              "radial-gradient(ellipse 100% 90% at 50% 0%, #000 80%, transparent 100%)",
           }}
         />
         {/* Your Content/Components */}
       </div>
-
-     
-
       {/* Glow overlay */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-background/95 via-background/80 to-background/70" />
 
-      <Card className="container  mx-auto bg-background/80 backdrop-blur-xl border border-border/40 shadow-xl rounded-3xl">
+      <Card className="container  mx-auto bg-background backdrop-blur-xl border border-border/40 shadow-xl rounded-3xl dark:border-4 dark:shadow-2xl dark:shadow-primary/60">
         <CardContent className="flex flex-col lg:flex-row items-center gap-10 p-10 lg:p-16">
           {/* Left Section */}
           <motion.div

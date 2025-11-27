@@ -1,20 +1,36 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from "@/redux/provider/ReduxProvider";
 import { Toaster } from "@/components/ui/sonner";
 import LogoutSuccessToast from "@/components/shared/LogoutSuccessToast";
 import LoginSuccessToast from "@/components/shared/LoginSuccessToast";
+import { Display } from "next/dist/compiled/@next/font";
 
-const geistSans = Geist({
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+const geistSans = Ubuntu({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"] as ("300" | "400" | "500" | "700")[],
+  display: "swap" as Display,
 });
 
-const geistMono = Geist_Mono({
+const geistMono = Ubuntu({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"] as ("300" | "400" | "500" | "700")[],
+  display: "swap" as Display,
+  style: ["normal", "italic"] as ("normal" | "italic")[],
 });
 
 export const metadata: Metadata = {

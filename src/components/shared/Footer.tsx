@@ -57,16 +57,16 @@ function SocialIcon({
         <path
           d={svgPaths.p1c2b2f40}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
         <path
           d={svgPaths.p106a6a60}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
       </>
     ),
@@ -75,23 +75,23 @@ function SocialIcon({
         <path
           d={svgPaths.p204bd7c0}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
         <path
           d={svgPaths.pad25e80}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
         <path
           d={svgPaths.p127a4d00}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
       </>
     ),
@@ -99,9 +99,9 @@ function SocialIcon({
       <path
         d={svgPaths.pba1780}
         stroke="currentColor"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
       />
     ),
     instagram: (
@@ -109,23 +109,23 @@ function SocialIcon({
         <path
           d={svgPaths.p299a6200}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
         <path
           d={svgPaths.p3cad6d80}
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
         <path
           d="M13.125 4.875H13.1325"
           stroke="currentColor"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="2"
         />
       </>
     ),
@@ -140,7 +140,7 @@ function SocialIcon({
 
 export function Footer({
   brandName = "Hamza",
-  tagline = "A passionate full-stack web developer focused on creating innovative and user-friendly web applications with modern technologies.",
+  tagline = "A passionate full-stack web developer...",
   quickLinks = [
     { label: "About Me", href: "#about" },
     { label: "My Skills", href: "#skills" },
@@ -159,13 +159,19 @@ export function Footer({
     { name: "Instagram", href: "https://instagram.com", icon: "instagram" },
   ],
   copyrightYear = 2025,
-  copyrightName = "Hamza Aryan Sapnil",
+  copyrightName = "Hamza",
   showPrivacyPolicy = true,
   showTermsOfService = true,
 }: FooterProps) {
   return (
     <motion.footer
-      className="bg-primary text-primary-foreground py-16 px-4"
+      className="
+        bg-card 
+        text-card-foreground 
+        border-t 
+        border-border
+        py-16 px-4
+      "
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
@@ -173,15 +179,16 @@ export function Footer({
     >
       <div className="container mx-auto">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12 "
           variants={fadeUp}
         >
           {/* Brand Section */}
-          <motion.div variants={fadeUp} className="space-y-6">
+          <motion.div variants={fadeUp} className="space-y-6 lg:justify-self-start">
             <div className="flex items-center gap-0.5 text-2xl font-bold">
               <span>{brandName}</span>
-              <span className="text-accent-foreground">.</span>
+              <span className="text-accent">.</span>
             </div>
+
             <p className="text-muted-foreground">{tagline}</p>
 
             <div className="flex gap-4">
@@ -191,7 +198,14 @@ export function Footer({
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary hover:bg-secondary/80 transition-colors flex items-center justify-center"
+                  className="
+                    w-10 h-10 rounded-full 
+                    bg-secondary 
+                    text-secondary-foreground
+                    hover:bg-secondary/70 
+                    transition-colors 
+                    flex items-center justify-center
+                  "
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -202,14 +216,19 @@ export function Footer({
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div variants={fadeUp} className="space-y-4">
+          <motion.div variants={fadeUp} className="space-y-4 lg:justify-self-center">
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <nav className="space-y-3">
               {quickLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="block text-muted-foreground hover:text-primary-foreground transition-colors"
+                  className="
+                    block 
+                    text-muted-foreground 
+                    hover:text-foreground 
+                    transition-colors
+                  "
                 >
                   {link.label}
                 </Link>
@@ -218,7 +237,7 @@ export function Footer({
           </motion.div>
 
           {/* Contact Info */}
-          <motion.div variants={fadeUp} className="space-y-4">
+          <motion.div variants={fadeUp} className="space-y-4 lg:justify-self-end">
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <div className="space-y-3 text-muted-foreground">
               <p>{contactInfo.email}</p>
@@ -233,26 +252,31 @@ export function Footer({
         {/* Bottom Section */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground"
+          className="
+            flex flex-col md:flex-row 
+            justify-between items-center gap-4 
+            text-sm text-muted-foreground
+          "
         >
           <p>
             © {copyrightYear} {copyrightName}. All rights reserved.
           </p>
-          {(showPrivacyPolicy || showTermsOfService) && (
-            <div className="flex items-center gap-2">
-              {showPrivacyPolicy && (
-                <Link href="#privacy" className="hover:text-primary-foreground">
-                  Privacy Policy
-                </Link>
-              )}
-              {showPrivacyPolicy && showTermsOfService && <span>•</span>}
-              {showTermsOfService && (
-                <Link href="#terms" className="hover:text-primary-foreground">
-                  Terms of Service
-                </Link>
-              )}
-            </div>
-          )}
+
+          <div className="flex items-center gap-2">
+            {showPrivacyPolicy && (
+              <Link href="#privacy" className="hover:text-foreground">
+                Privacy Policy
+              </Link>
+            )}
+
+            {showPrivacyPolicy && showTermsOfService && <span>•</span>}
+
+            {showTermsOfService && (
+              <Link href="#terms" className="hover:text-foreground">
+                Terms of Service
+              </Link>
+            )}
+          </div>
         </motion.div>
       </div>
     </motion.footer>

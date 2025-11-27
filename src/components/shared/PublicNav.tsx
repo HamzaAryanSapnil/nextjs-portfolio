@@ -24,7 +24,7 @@ export const navItems = [
   },
   {
     label: "My Blogs",
-    href: "#blogs",
+    href: "/blogs",
   },
 ];
 
@@ -34,8 +34,8 @@ export default async function PublicNav() {
 
   return (
     <ClientNavHeader>
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="#" className="text-xl md:text-2xl font-bold text-primary">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between ">
+        <Link href="/" className="text-xl md:text-2xl font-bold text-primary">
           Hamza<span className="">.</span>
         </Link>
 
@@ -50,6 +50,15 @@ export default async function PublicNav() {
               {item.label}
             </Link>
           ))}
+
+          {accessToken && (
+            <Link
+              href={"/profile"}
+              className="text-sm font-medium hover: transition-colors"
+            >
+              Dashboard
+            </Link>
+          )}
 
           {accessToken ? (
             <LogoutBtn />
@@ -69,7 +78,7 @@ export default async function PublicNav() {
       </div>
 
       {/* Mobile Navigation */}
-      <PublicMobileNav />
+      <PublicMobileNav accessToken={accessToken ? accessToken : ""} />
     </ClientNavHeader>
   );
 }

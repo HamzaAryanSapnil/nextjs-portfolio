@@ -83,7 +83,7 @@ export function Projects({
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {displayedProjects.map((project, index) => (
-            <ProjectCard key={project.id} {...project} index={index} />
+            <ProjectCard key={project.id} {...project} index={index} liveUrl="#" codeUrl="#" />
           ))}
         </motion.div>
 
@@ -95,13 +95,13 @@ export function Projects({
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center mt-10"
           >
-            <Link
+            {/* <Link
               href={viewAllUrl}
               className="inline-flex items-center gap-2 text-primary hover:opacity-80 transition-opacity text-sm font-medium"
             >
               View All Projects
               <ArrowRight size={16} />
-            </Link>
+            </Link> */}
           </motion.div>
         )}
       </div>
