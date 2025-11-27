@@ -80,7 +80,7 @@ export default function Hero({
       id="hero"
       className="relative flex items-center justify-center min-h-screen bg-linear-to-b from-background via-background to-secondary/30"
     >
-      <div className="min-h-screen w-full bg-white absolute inset-0 overflow-hidden">
+      <div className="min-h-screen w-full bg-background absolute inset-0 overflow-hidden">
         {/*  Diagonal Cross Grid Top Background */}
         <div
           className="absolute inset-0 
