@@ -52,7 +52,7 @@
 
 # Backend 🧪 API Endpoints (Sample)
 
-Main api: https://digital-walet-backend.vercel.app/api/v1
+Main api: https://my-portfolio-backend-peach.vercel.app/api/v1
 
 ### Auth
 - `POST /auth/login` — Login and receive access token
