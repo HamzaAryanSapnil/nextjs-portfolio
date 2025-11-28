@@ -17,9 +17,19 @@ import InputFieldError from "@/components/shared/InputFieldError";
 export default function LoginFormClient({ redirect }: { redirect?: string }) {
   const router = useRouter();
   const [state, formAction, isPending] = React.useActionState(loginAdmin, null);
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
 
-  console.log("login state: ", state);
+  const handleAdminCredentials = (e: any) => {
+    e.preventDefault();
+    setEmail((process.env.ADMIN_EMAIL as string) ?? "hamzaswapnil@gmail.com");
+    setPassword((process.env.ADMIN_PASSWORD as string) ?? "Hamza@12345");
 
+    console.log({
+      email,
+      password,
+    });
+  };
 
   useEffect(() => {
     if (state && !state?.success && state?.message) {
@@ -43,7 +53,7 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
             type="text"
             autoComplete="admin-email"
             placeholder="admin@email.com"
-            required
+            defaultValue={email ? email : ""}
           />
           <InputFieldError field="email" state={state} />
         </div>
@@ -58,7 +68,7 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
             name="password"
             placeholder="••••••••"
             autoComplete="current-password"
-            required
+            defaultValue={password ? password : ""}
           />
           <InputFieldError field="password" state={state} />
         </div>
@@ -68,7 +78,18 @@ export default function LoginFormClient({ redirect }: { redirect?: string }) {
             {isPending ? "Signing in…" : "Sign in"}
           </Button>
         </div>
-        <Button onClick={() => router.push("/")}>return to home</Button>
+        <div className="flex justify-between">
+          <Button
+            onClick={(e: any) => {
+              e.preventDefault();
+              router.push("/");
+            }}
+          >
+            return to home
+          </Button>
+          {/* adding admin credentials on the form */}
+          <Button onClick={handleAdminCredentials}>Admin Credentials</Button>
+        </div>
       </form>
     </>
   );
