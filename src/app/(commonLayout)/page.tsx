@@ -93,7 +93,7 @@ export interface BlogPost {
 
 export default async function Home() {
   // fetch blogs
-  const blogsRes = await serverFetch.get("/blogs");
+  const blogsRes = await serverFetch.get("/blogs", {cache: "no-store"});
   const blogsJson = await blogsRes.json().catch(() => null);
   
   
