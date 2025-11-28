@@ -1,11 +1,24 @@
 import DashboardNavbar from "@/components/modules/dashboard/DashboardNavbar";
 import DashboardSidebar from "@/components/modules/dashboard/DashboardSidebar";
 
+
+import { cookies } from "next/headers";
+
+async function getCookieData() {
+  return new Promise((resolve) =>
+    setTimeout(async () => {
+      // cookies will be called outside of the async context, causing a build-time error
+      const cookieStore = await cookies();
+      resolve(cookieStore.getAll());
+    }, 1000)
+  );
+}
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+   const cookieData = await getCookieData();
   return (
     <div className="flex h-screen overflow-hidden">
       <DashboardSidebar />
