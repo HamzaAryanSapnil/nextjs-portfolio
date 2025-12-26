@@ -1,12 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BlogCard from "@/components/modules/blog/BlogCard";
-import { serverFetch } from "@/lib/server-fetch";
-import { IBlog } from "@/types/blogs.interface";
+
+import { getAllBlogs } from "@/services/admin/blogsManagement";
 
 export default async function BlogsPage() {
-  const res = await serverFetch.get("/blogs");
-  const data = await res.json();
-
-  const blogs: IBlog[] = data?.data || [];
+  const blogs = await getAllBlogs();
 
   return (
     <div className="space-y-8 pb-10 container mx-auto">
@@ -21,7 +19,7 @@ export default async function BlogsPage() {
       {/* Blogs Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.length > 0 ? (
-          blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />)
+          blogs.map((blog : any) => <BlogCard key={blog.id} blog={blog} />)
         ) : (
           <p className="text-muted-foreground">No blogs found.</p>
         )}

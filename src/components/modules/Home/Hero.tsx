@@ -3,11 +3,11 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Twitter, ArrowRight } from "lucide-react";
+import { Download, Linkedin, MessageCircle, Mail } from "lucide-react";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import TypewriterText from "./TypewriterText";
 
 export interface LinkButton {
   text: string;
@@ -19,10 +19,13 @@ export interface HeroProps {
   subtitle?: string;
   name?: string;
   greeting?: string;
-  description?: string[];
+  description?: string;
   primaryButton?: LinkButton | null;
-  secondaryButton?: LinkButton | null;
-  socialLinks?: { github?: string; linkedin?: string; twitter?: string };
+  socialLinks?: {
+    email?: string;
+    whatsapp?: string;
+    linkedin?: string;
+  };
   profileImage?: string | StaticImageData;
   backgroundImage?: string | StaticImageData;
 }
@@ -46,221 +49,198 @@ const textItem = {
 };
 
 export default function Hero({
-  subtitle = "Full-Stack Web Developer",
-  name = "Hamza Aryen Sapnil",
-  greeting = "Hi, I'm",
-  description = [
-    "I build exceptional and accessible digital experiences for the web, focusing",
-    "on clean code and modern development practices.",
-  ],
-  primaryButton = { text: "View My Work", href: "#projects" },
-  secondaryButton = { text: "Contact Me", href: "#contact" },
-  socialLinks = { github: "#", linkedin: "#", twitter: "#" },
+  subtitle = "Full-Stack MERN Developer",
+  name = "Hamza Aryan Sapnil",
+  greeting = "Hello! I'm",
+  description = "I'm a passionate full-stack web developer with expertise in building modern, responsive, and user-friendly web applications. With a strong foundation in both front-end and back-end technologies, I create seamless digital experiences that solve real-world problems.",
+  primaryButton = {
+    text: "Get Resume",
+    href: "/Hamza Aryan Sapnil Resume.docx.pdf",
+  },
+  socialLinks = {
+    email: "hamzaswapnil@gmail.com",
+    whatsapp: "https://wa.me/8801303539006",
+    linkedin: "https://www.linkedin.com/in/hamzaaryansapnil/",
+  },
   profileImage = "/profile.png",
 }: HeroProps) {
-  const router = useRouter();
-
-  // Smooth internal navigation
-  const handleNavigate = (btn?: LinkButton | null, e?: React.MouseEvent) => {
-    if (!btn || !btn.href) return;
-    e?.preventDefault();
-
-    if (btn.href.startsWith("#")) {
-      const el = document.getElementById(btn.href.slice(1));
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      router.push(btn.href);
+  // Handle resume download
+  const handleResumeDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (primaryButton?.href) {
+      window.open(primaryButton.href, "_blank");
     }
   };
 
   return (
     <section
       id="hero"
-      className="relative flex items-center justify-center min-h-screen bg-linear-to-b from-background via-background to-secondary/30"
+      className="relative min-h-screen bg-[#1a1a1a] dark:bg-[#0f0f0f] overflow-hidden"
     >
-      <div className="min-h-screen w-full bg-background absolute inset-0 overflow-hidden">
-        {/*  Diagonal Cross Grid Top Background */}
-        <div
-          className="absolute inset-0 
-    [--pattern-bg:var(--background)]
-    [--pattern-color:var(--pattern-color)]
-  "
-          style={{
-            backgroundColor: "var(--pattern-bg)",
-
-            backgroundImage: `
-      linear-gradient(
-        45deg,
-        transparent 49%,
-        var(--pattern-color) 49%,
-        var(--pattern-color) 51%,
-        transparent 51%
-      ),
-      linear-gradient(
-        -45deg,
-        transparent 49%,
-        var(--pattern-color) 49%,
-        var(--pattern-color) 51%,
-        transparent 51%
-      )
-    `,
-
-            backgroundSize: "40px 40px",
-
-            WebkitMaskImage:
-              "radial-gradient(ellipse 100% 90% at 50% 0%, #000 80%, transparent 100%)",
-            maskImage:
-              "radial-gradient(ellipse 100% 90% at 50% 0%, #000 80%, transparent 100%)",
-          }}
-        />
-        {/* Your Content/Components */}
+      {/* Background Ripple Effect - Subtle */}
+      <div
+        className="absolute inset-0 opacity-20 dark:opacity-15 z-0"
+        style={
+          {
+            "--cell-border-color": "rgba(255, 255, 255, 0.1)",
+            "--cell-fill-color": "rgba(255, 255, 255, 0.03)",
+            "--cell-shadow-color": "rgba(255, 255, 255, 0.05)",
+          } as React.CSSProperties
+        }
+      >
+        <BackgroundRippleEffect rows={10} cols={30} cellSize={48} />
       </div>
-      {/* Glow overlay */}
-      <div className="absolute inset-0 -z-10 bg-linear-to-b from-background/95 via-background/80 to-background/70" />
 
-      <Card className="container  mx-auto bg-background backdrop-blur-xl border border-border/40 shadow-xl rounded-3xl dark:border-4 dark:shadow-2xl dark:shadow-primary/60">
-        <CardContent className="flex flex-col lg:flex-row items-center gap-10 p-10 lg:p-16">
-          {/* Left Section */}
-          <motion.div
-            className="flex-1 space-y-6"
-            variants={textContainer as Variants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <motion.div variants={textItem as Variants}>
-              <p className="text-sm text-primary tracking-wide font-medium uppercase">
+      {/* Main Content Container */}
+      <div className="container mx-auto px-4 py-20 lg:py-32 relative z-10 pointer-events-none">
+        <div className="pointer-events-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center justify-items-center min-h-[calc(100vh-200px)]">
+            {/* Left Section - Text Content */}
+            <motion.div
+              className="space-y-6 lg:space-y-8"
+              variants={textContainer as Variants}
+              initial="hidden"
+              animate="show"
+            >
+              <motion.p
+                variants={textItem as Variants}
+                className="text-white text-xl lg:text-2xl font-serif"
+              >
+                {greeting}
+              </motion.p>
+
+              <motion.h1
+                variants={textItem as Variants}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight"
+              >
+                <span className="block md:inline">
+                  {name.split(" ").slice(0, -1).join(" ")}
+                </span>
+                <span className="block md:inline md:ml-2 relative">
+                  <span className="relative z-10">
+                    <TypewriterText
+                      text={name.split(" ").slice(-1)[0]}
+                      speed={150}
+                      delay={500}
+                      className="inline-block"
+                      loop={true}
+                      loopDelay={4000}
+                    />
+                  </span>
+                  <svg
+                    className="absolute bottom-0 left-0 w-full h-3 text-gray-600/50"
+                    viewBox="0 0 200 20"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M 0 10 Q 50 5, 100 10 T 200 10"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="none"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
+                </span>
+              </motion.h1>
+
+              <motion.p
+                variants={textItem as Variants}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-sans bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+              >
                 {subtitle}
-              </p>
-            </motion.div>
+              </motion.p>
 
-            <motion.h1
-              variants={textItem as Variants}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground"
-            >
-              <span className="block text-muted-foreground">{greeting}</span>
-              <span className="bg-linear-to-r from-primary to-foreground bg-clip-text text-transparent">
-                {name}
-              </span>
-            </motion.h1>
+              {description && (
+                <motion.p
+                  variants={textItem as Variants}
+                  className="text-gray-400 text-base lg:text-lg font-sans max-w-2xl"
+                >
+                  {description}
+                </motion.p>
+              )}
 
-            <motion.div
-              variants={textItem as Variants}
-              className="text-muted-foreground space-y-2 max-w-2xl text-lg leading-relaxed"
-            >
-              {description.map((line, idx) => (
-                <p key={idx}>{line}</p>
-              ))}
-            </motion.div>
-
-            {/* Buttons */}
-            <motion.div
-              variants={textItem as Variants}
-              className="flex flex-col sm:flex-row gap-3 pt-4"
-            >
-              {primaryButton && (
-                <Button
-                  asChild
-                  onClick={(e) => handleNavigate(primaryButton, e)}
-                  className="group"
-                >
-                  <Link href={primaryButton.href ?? "#"}>
-                    {primaryButton.text}
-                    <motion.span
-                      className="inline-flex items-center ml-2"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 1.8,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      <ArrowRight size={18} />
-                    </motion.span>
-                  </Link>
-                </Button>
-              )}
-              {secondaryButton && (
-                <Button
-                  variant="outline"
-                  asChild
-                  onClick={(e) => handleNavigate(secondaryButton, e)}
-                >
-                  <Link href={secondaryButton.href ?? "#"}>
-                    {secondaryButton.text}
-                  </Link>
-                </Button>
-              )}
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              variants={textItem as Variants}
-              className="flex items-center gap-4 pt-4"
-            >
-              {socialLinks.github && (
-                <Link
-                  href={socialLinks.github}
-                  target="_blank"
-                  aria-label="GitHub"
-                  className="hover:text-foreground text-muted-foreground transition"
-                >
-                  <Github size={20} />
-                </Link>
-              )}
-              {socialLinks.linkedin && (
-                <Link
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  aria-label="LinkedIn"
-                  className="hover:text-foreground text-muted-foreground transition"
-                >
-                  <Linkedin size={20} />
-                </Link>
-              )}
-              {socialLinks.twitter && (
-                <Link
-                  href={socialLinks.twitter}
-                  target="_blank"
-                  aria-label="Twitter"
-                  className="hover:text-foreground text-muted-foreground transition"
-                >
-                  <Twitter size={20} />
-                </Link>
-              )}
-            </motion.div>
-          </motion.div>
-
-          {/* Right Section */}
-          <motion.div
-            className="flex-1 flex justify-center lg:justify-end relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-border shadow-2xl">
-              <Image
-                src={profileImage}
-                alt="Profile photo"
-                fill
-                className="object-cover object-center"
-              />
+              {/* Buttons */}
               <motion.div
-                className="absolute inset-0 bg-linear-to-tr from-primary/10 to-transparent"
-                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
-          </motion.div>
-        </CardContent>
-      </Card>
+                variants={textItem as Variants}
+                className="flex flex-col sm:flex-row gap-4 pt-4"
+              >
+                {primaryButton && (
+                  <Button
+                    onClick={handleResumeDownload}
+                    className="bg-gray-800 hover:bg-gray-700 text-white rounded-lg px-6 py-6 text-base font-medium group"
+                  >
+                    {primaryButton.text}
+                    <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+                  </Button>
+                )}
+              </motion.div>
+            </motion.div>
+
+            {/* Right Section - Image and Social Icons */}
+            <motion.div
+              className="relative flex justify-center lg:justify-end items-center z-20"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <div className="relative z-20">
+                {/* Portrait Image */}
+                <div className="relative w-64 h-[400px] sm:w-72 sm:h-[450px] md:w-[650px] md:h-[500px] lg:w-96 lg:h-[600px] mx-auto">
+                  <Image
+                    src={profileImage}
+                    alt="Profile"
+                    fill
+                    className="object-cover object-center rounded-lg"
+                    priority
+                    sizes="(max-width: 640px) 224px, (max-width: 768px) 650px, (max-width: 1024px) 384px, 384px"
+                  />
+                </div>
+
+                {/* Social Media Icons - Right Side */}
+                <div className="absolute -right-20 top-1/2 -translate-y-1/2 hidden lg:block z-30 pointer-events-none">
+                  {/* Social Icons */}
+                  <div
+                    className="relative flex flex-col gap-5 items-center pointer-events-auto"
+                    style={{ right: "8px" }}
+                  >
+                    {socialLinks.email && (
+                      <Link
+                        href={`mailto:${socialLinks.email}`}
+                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        aria-label="Email"
+                      >
+                        <Mail className="h-5 w-5" />
+                      </Link>
+                    )}
+
+                    {socialLinks.whatsapp && (
+                      <Link
+                        href={socialLinks.whatsapp}
+                        target="_blank"
+                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        aria-label="WhatsApp"
+                      >
+                        <MessageCircle className="h-5 w-5" />
+                      </Link>
+                    )}
+
+                    {socialLinks.linkedin && (
+                      <Link
+                        href={socialLinks.linkedin}
+                        target="_blank"
+                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

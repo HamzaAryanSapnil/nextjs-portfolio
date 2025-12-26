@@ -30,7 +30,7 @@ export const defaultFrontendTech: Tech[] = [
   {
     id: "next",
     name: "Next.js",
-    shadowColor: "#00000022",
+    shadowColor: "#ffffff22",
     logo: (
       <svg
         className="w-8 h-8"
@@ -38,7 +38,7 @@ export const defaultFrontendTech: Tech[] = [
         role="img"
         aria-label="Next.js"
       >
-        <path d={svgPaths.p2abae00} fill="#000000" />
+        <path d={svgPaths.p2abae00} fill="#ffffff" />
       </svg>
     ),
   },
@@ -108,7 +108,7 @@ export const defaultBackendTech: Tech[] = [
   {
     id: "express",
     name: "Express.js",
-    shadowColor: "#00000022",
+    shadowColor: "#ffffff22",
     logo: (
       <svg
         viewBox="0 0 48 48"
@@ -118,11 +118,11 @@ export const defaultBackendTech: Tech[] = [
         aria-label="Express"
       >
         <path
-          fill="#000000"
+          fill="#ffffff"
           d="M23.697,37.56h1.18c0.84,0,1.631-0.392,2.139-1.061l7.485-9.847l7.485,9.847	c0.508,0.668,1.299,1.061,2.139,1.061h1.18L35.756,25l9.121-12h-1.18c-0.84,0-1.631,0.392-2.139,1.061L34.5,23.347l-7.059-9.287	C26.933,13.392,26.142,13,25.302,13h-1.18l9.121,12L23.697,37.56z"
         />
         <path
-          fill="#000000"
+          fill="#ffffff"
           d="M24,26v-3c0-6.675-5.945-11.961-12.829-10.852C5.812,13.011,2,17.857,2,23.284L2,24v2v0.142	c0,6.553,4.777,11.786,10.868,11.858c5.092,0.06,9.389-3.344,10.707-7.999h-1.028c-0.62,0-1.182,0.355-1.451,0.913	c-1.739,3.595-5.789,5.862-10.228,4.842C6.776,34.815,4,30.981,4,26.783V26H24z M4,23.71c0-4.708,2.804-8.557,6.924-9.478	C16.798,12.92,22,17.352,22,23v1H4V23.71z"
         />
       </svg>
@@ -139,8 +139,9 @@ export const defaultBackendTech: Tech[] = [
         height="30"
         role="img"
         aria-label="Postgres"
+        className="brightness-110"
       >
-        <path fill="#336791" d={svgPaths.p2cac340} />
+        <path fill="#4A9BD6" d={svgPaths.p2cac340} />
       </svg>
     ),
   },
@@ -150,13 +151,26 @@ export const defaultBackendTech: Tech[] = [
     shadowColor: "#2A82FF22",
     logo: (
       <svg
-        viewBox="0 0 48 48"
+        viewBox="0 0 24 24"
         width="30"
         height="30"
         role="img"
         aria-label="Prisma"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path fill="#2A82FF" d={svgPaths.p1cec7ff0} />
+        <path
+          d="M21.8068 18.2848L13.5528.7565c-.207-.4382-.636-.7626-1.128-.8076-.4924-.045-1.003.196-1.359.557L2.863 7.1915c-.284.2778-.444.6518-.444 1.042v13.499c0 .645.523 1.167 1.167 1.167.322 0 .624-.13.834-.359l16.177-14.327c.28-.248.36-.651.197-1.001l-1.388-2.839zm-2.736 2.024L5.776 21.4309V9.2152l13.2947-2.389-2.4 13.4826z"
+          fill="#2D3748"
+        />
+        <path
+          d="M19.0708 19.3088L5.776 21.4309V9.2152l13.2947-2.389-2.4 13.4826z"
+          fill="#0C344B"
+        />
+        <path
+          d="M19.0708 19.3088L5.776 21.4309V9.2152l13.2947-2.389-2.4 13.4826z"
+          fill="#5C9EFF"
+        />
       </svg>
     ),
   },

@@ -4,7 +4,6 @@ import Link from "next/link";
 import ClientNavHeader from "./ClientNavHeader";
 import ClientButton from "../modules/Home/Nav/ClientButton";
 import PublicMobileNav from "../modules/Home/Nav/PublicMobileNav";
-import { ModeToggle } from "../toggle-theme";
 import { Button } from "../ui/button";
 import { getCookie } from "@/services/auth/tokenHandler";
 import LogoutBtn from "./LogoutBtn";
@@ -69,8 +68,6 @@ export default async function PublicNav() {
               </Button>
             </Link>
           )}
-
-          <ModeToggle />
         </nav>
 
         {/* Mobile Menu Button */}

@@ -1,18 +1,24 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { StaticImageData } from "next/image";
 import { ProjectCard } from "./ProjectCard";
 
 export interface Project {
   id: string;
-  image: string;
+  image: string | StaticImageData;
   title: string;
   description: string;
   technologies: string[];
   liveUrl?: string;
   codeUrl?: string;
+  backendUrl?: string;
+  backendCodeUrl?: string;
+  fullDescription?: string;
+  features?: string[];
+  frontendStack?: string[];
+  backendStack?: string[];
+  services?: string[];
 }
 
 interface ProjectsProps {
@@ -40,7 +46,6 @@ export function Projects({
   projects,
   showHeader = true,
   showViewAll = true,
-  viewAllUrl = "#",
   maxProjects,
 }: ProjectsProps) {
   const displayedProjects = maxProjects
@@ -48,7 +53,7 @@ export function Projects({
     : projects;
 
   return (
-    <section className="w-full py-20 px-4" id="projects">
+    <section className="w-full py-20 px-4 bg-background" id="projects">
       <div className="container mx-auto">
         {showHeader && (
           <motion.div
@@ -83,7 +88,7 @@ export function Projects({
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {displayedProjects.map((project, index) => (
-            <ProjectCard key={project.id} {...project} index={index} liveUrl="#" codeUrl="#" />
+            <ProjectCard key={project.id} {...project} index={index} />
           ))}
         </motion.div>
 

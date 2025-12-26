@@ -64,6 +64,7 @@ export function BlogSection({
   showViewAll = true,
   onViewAll,
 }: BlogSectionProps) {
+  console.log("Posts from blog.tsx: ", posts)
   return (
     <section
       id="blogs"
@@ -92,7 +93,7 @@ export function BlogSection({
           variants={containerVariants}
         >
           {posts.map((post, i) => (
-            <BlogCard key={post.id} blog={post} />
+            <BlogCard key={post?.id} blog={post} />
           ))}
         </motion.div>
 

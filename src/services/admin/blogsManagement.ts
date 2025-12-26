@@ -91,9 +91,11 @@ export async function createBlog(_prevState: any, formData: FormData) {
   }
 }
 
-export async function getAllBlogs() {
+export async function getAllBlogs(queryString?: string) {
   try {
-    const response = await serverFetch.get("/blogs");
+    const response = await serverFetch.get(
+      `/blogs${queryString ? queryString : ""}`
+    );
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -130,7 +132,7 @@ export async function updateBlog(_prevState: any, formData: FormData) {
   try {
     // Build a partial payload from provided formData values (only include present/ non-empty)
     const partialPayload: Partial<UpdateBlogZodSchema> = {};
-  const id = formData.get("id") as string;
+    const id = formData.get("id") as string;
     const title = formData.get("title");
     const slug = formData.get("slug");
     const description = formData.get("description");
@@ -236,8 +238,6 @@ export async function updateBlog(_prevState: any, formData: FormData) {
     };
   }
 }
-
-
 
 export async function deleteBlog(id: string) {
   try {
