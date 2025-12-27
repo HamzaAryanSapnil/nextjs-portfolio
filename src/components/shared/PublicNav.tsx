@@ -4,14 +4,12 @@ import Link from "next/link";
 import ClientNavHeader from "./ClientNavHeader";
 import ClientButton from "../modules/Home/Nav/ClientButton";
 import PublicMobileNav from "../modules/Home/Nav/PublicMobileNav";
-import { Button } from "../ui/button";
 import { getCookie } from "@/services/auth/tokenHandler";
-import LogoutBtn from "./LogoutBtn";
 
 export const navItems = [
   {
     label: "Home",
-    href: "/"
+    href: "/",
   },
   {
     label: "About Me",
@@ -26,8 +24,8 @@ export const navItems = [
     href: "#projects",
   },
   {
-    label: "My Blogs",
-    href: "#blogs",
+    label: "Contact",
+    href: "#contact",
   },
 ];
 
