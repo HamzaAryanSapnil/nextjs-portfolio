@@ -3,8 +3,13 @@ import { BlogSection } from "@/components/modules/Home/Blog";
 import Hero from "@/components/modules/Home/Hero";
 import { Projects } from "@/components/modules/Home/Project";
 import Skills from "@/components/modules/Home/Skills";
+import Contact from "@/components/modules/Home/Contact";
 
 import { getAllBlogs } from "@/services/admin/blogsManagement";
+
+// Force static generation for homepage
+export const dynamic = "force-static";
+export const revalidate = false; // Static page, no revalidation
 
 import travelBuddyImage from "@/assets/images/travelBuddy.jpg";
 import healthCareImage from "@/assets/images/healthCare.png";
@@ -167,11 +172,26 @@ export interface BlogPost {
 }
 
 export default async function Home() {
-  // fetch blogs
-  // const blogsRes = await serverFetch.get("/blogs", {cache: "no-store"});
-  // const blogsJson = await blogsRes.json().catch(() => null);
+  // Fetch blogs at build time - limit to 10 for homepage
+  // This will be statically generated at build time
+  let blogs = null;
+  try {
+    const blogsResponse = await getAllBlogs();
+    if (blogsResponse?.success && blogsResponse?.data) {
+      // Limit to 10 blogs for homepage
+      const blogsData = Array.isArray(blogsResponse.data)
+        ? blogsResponse.data.slice(0, 10)
+        : blogsResponse.data;
 
-  const blogs = await getAllBlogs();
+      blogs = {
+        ...blogsResponse,
+        data: blogsData,
+      };
+    }
+  } catch (error) {
+    console.error("Error fetching blogs for homepage:", error);
+    // Continue with empty blogs - page will still render statically
+  }
 
   return (
     <>
@@ -179,7 +199,8 @@ export default async function Home() {
       <AboutMe />
       <Skills enableAnimations={true} heading="Technical Skills" />
       <Projects projects={projects} showViewAll viewAllUrl="/projects" />;
-      <BlogSection posts={blogs?.data} />
+      <BlogSection posts={blogs?.data || []} />
+      <Contact />
     </>
   );
 }

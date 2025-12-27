@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { Mail, Phone, MapPin } from "lucide-react";
 import svgPaths from "@/assets/svg/footer-svg";
 
 interface FooterLink {
@@ -14,6 +16,7 @@ interface SocialLink {
   name: string;
   href: string;
   icon: "github" | "linkedin" | "twitter" | "instagram";
+  color?: string;
 }
 
 interface ContactInfo {
@@ -139,29 +142,39 @@ function SocialIcon({
 }
 
 export function Footer({
-  brandName = "Hamza",
-  tagline = "A passionate full-stack web developer...",
+  brandName = "Hamza Aryan Sapnil",
+  tagline = "Full-Stack MERN Developer passionate about building modern, scalable web applications.",
   quickLinks = [
-    { label: "About Me", href: "#about" },
-    { label: "My Skills", href: "#skills" },
-    { label: "My Projects", href: "#projects" },
-    { label: "My Blogs", href: "#blogs" },
+    { label: "Home", href: "/#hero" },
+    { label: "About Me", href: "/#about" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Blogs", href: "/#blogs" },
+    { label: "Contact", href: "/#contact" },
   ],
   contactInfo = {
-    email: "hamza@example.com",
-    phone: "+123 456 7890",
-    location: "San Francisco, California, USA",
+    email: "hamzaswapnil@gmail.com",
+    phone: "+880 1303 539 006",
+    location: "Tangail, Dhaka, Bangladesh",
   },
   socialLinks = [
-    { name: "GitHub", href: "https://github.com", icon: "github" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
-    { name: "Twitter", href: "https://twitter.com", icon: "twitter" },
-    { name: "Instagram", href: "https://instagram.com", icon: "instagram" },
+    { 
+      name: "GitHub", 
+      href: "https://github.com/HamzaAryanSapnil", 
+      icon: "github" as const,
+      color: "#181717"
+    },
+    { 
+      name: "LinkedIn", 
+      href: "https://www.linkedin.com/in/hamzaaryansapnil/", 
+      icon: "linkedin" as const,
+      color: "#0077B5"
+    },
   ],
   copyrightYear = 2025,
-  copyrightName = "Hamza",
-  showPrivacyPolicy = true,
-  showTermsOfService = true,
+  copyrightName = "Hamza Aryan Sapnil",
+  showPrivacyPolicy = false,
+  showTermsOfService = false,
 }: FooterProps) {
   return (
     <motion.footer
@@ -192,26 +205,38 @@ export function Footer({
             <p className="text-muted-foreground">{tagline}</p>
 
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    w-10 h-10 rounded-full 
-                    bg-secondary 
-                    text-secondary-foreground
-                    hover:bg-secondary/70 
-                    transition-colors 
-                    flex items-center justify-center
-                  "
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <SocialIcon type={social.icon} />
-                </motion.a>
-              ))}
+              {socialLinks.map((social) => {
+                const IconComponent = social.icon === "github" ? FaGithub : 
+                                     social.icon === "linkedin" ? FaLinkedin : null;
+                
+                return (
+                  <motion.a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      w-10 h-10 rounded-full 
+                      transition-all
+                      flex items-center justify-center
+                      hover:scale-110
+                    "
+                    style={{ 
+                      backgroundColor: social.color || "var(--secondary)",
+                      color: "white"
+                    }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={social.name}
+                  >
+                    {IconComponent ? (
+                      <IconComponent className="w-5 h-5" />
+                    ) : (
+                      <SocialIcon type={social.icon} />
+                    )}
+                  </motion.a>
+                );
+              })}
             </div>
           </motion.div>
 
@@ -240,9 +265,26 @@ export function Footer({
           <motion.div variants={fadeUp} className="space-y-4 lg:justify-self-end">
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <div className="space-y-3 text-muted-foreground">
-              <p>{contactInfo.email}</p>
-              <p>{contactInfo.phone}</p>
-              <p>{contactInfo.location}</p>
+              <a 
+                href={`mailto:${contactInfo.email}`}
+                className="flex items-center gap-2 hover:text-foreground transition-colors group"
+              >
+                <Mail className="w-4 h-4 group-hover:text-primary" />
+                <span>{contactInfo.email}</span>
+              </a>
+              <a 
+                href={`https://wa.me/8801303539006`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-foreground transition-colors group"
+              >
+                <Phone className="w-4 h-4 group-hover:text-primary" />
+                <span>{contactInfo.phone}</span>
+              </a>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4" />
+                <span>{contactInfo.location}</span>
+              </div>
             </div>
           </motion.div>
         </motion.div>

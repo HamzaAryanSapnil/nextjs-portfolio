@@ -5,7 +5,8 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Download, Linkedin, MessageCircle, Mail } from "lucide-react";
+import { Download, MessageCircle, Mail } from "lucide-react";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import TypewriterText from "./TypewriterText";
 
@@ -25,6 +26,7 @@ export interface HeroProps {
     email?: string;
     whatsapp?: string;
     linkedin?: string;
+    github?: string;
   };
   profileImage?: string | StaticImageData;
   backgroundImage?: string | StaticImageData;
@@ -61,6 +63,7 @@ export default function Hero({
     email: "hamzaswapnil@gmail.com",
     whatsapp: "https://wa.me/8801303539006",
     linkedin: "https://www.linkedin.com/in/hamzaaryansapnil/",
+    github: "https://github.com/HamzaAryanSapnil",
   },
   profileImage = "/profile.png",
 }: HeroProps) {
@@ -206,10 +209,11 @@ export default function Hero({
                     {socialLinks.email && (
                       <Link
                         href={`mailto:${socialLinks.email}`}
-                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        className="w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg z-10 hover:scale-110"
+                        style={{ backgroundColor: "#EA4335" }}
                         aria-label="Email"
                       >
-                        <Mail className="h-5 w-5" />
+                        <Mail className="h-5 w-5 text-white" />
                       </Link>
                     )}
 
@@ -217,10 +221,11 @@ export default function Hero({
                       <Link
                         href={socialLinks.whatsapp}
                         target="_blank"
-                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        className="w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg z-10 hover:scale-110"
+                        style={{ backgroundColor: "#25D366" }}
                         aria-label="WhatsApp"
                       >
-                        <MessageCircle className="h-5 w-5" />
+                        <MessageCircle className="h-5 w-5 text-white" />
                       </Link>
                     )}
 
@@ -228,10 +233,23 @@ export default function Hero({
                       <Link
                         href={socialLinks.linkedin}
                         target="_blank"
-                        className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-800 hover:bg-gray-200 transition-colors shadow-lg z-10"
+                        className="w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg z-10 hover:scale-110"
+                        style={{ backgroundColor: "#0077B5" }}
                         aria-label="LinkedIn"
                       >
-                        <Linkedin className="h-5 w-5" />
+                        <FaLinkedin className="h-5 w-5 text-white" />
+                      </Link>
+                    )}
+
+                    {socialLinks.github && (
+                      <Link
+                        href={socialLinks.github}
+                        target="_blank"
+                        className="w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg z-10 hover:scale-110"
+                        style={{ backgroundColor: "#181717" }}
+                        aria-label="GitHub"
+                      >
+                        <FaGithub className="h-5 w-5 text-white" />
                       </Link>
                     )}
                   </div>

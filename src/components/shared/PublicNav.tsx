@@ -10,6 +10,10 @@ import LogoutBtn from "./LogoutBtn";
 
 export const navItems = [
   {
+    label: "Home",
+    href: "/"
+  },
+  {
     label: "About Me",
     href: "#about",
   },
@@ -23,7 +27,7 @@ export const navItems = [
   },
   {
     label: "My Blogs",
-    href: "/blogs",
+    href: "#blogs",
   },
 ];
 
@@ -50,7 +54,7 @@ export default async function PublicNav() {
             </Link>
           ))}
 
-          {accessToken && (
+          {/* {accessToken && (
             <Link
               href={"/profile"}
               className="text-sm font-medium hover: transition-colors"
@@ -67,7 +71,7 @@ export default async function PublicNav() {
                 Login
               </Button>
             </Link>
-          )}
+          )} */}
         </nav>
 
         {/* Mobile Menu Button */}

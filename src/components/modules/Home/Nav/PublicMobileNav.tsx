@@ -42,7 +42,7 @@ export default function PublicMobileNav({ accessToken }: PublicMobileNavProps) {
               </motion.a>
             ))}
 
-            {accessToken ? (
+            {/* {accessToken ? (
               <LogoutBtn />
             ) : (
               <Link href="/login">
@@ -50,7 +50,7 @@ export default function PublicMobileNav({ accessToken }: PublicMobileNavProps) {
                   Login
                 </Button>
               </Link>
-            )}
+            )} */}
           </nav>
         </motion.div>
       )}

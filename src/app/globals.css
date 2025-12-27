@@ -201,6 +201,7 @@ html {
   opacity: 0.5;
   animation: neon-glow 3s ease-in-out infinite;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .neon-border:hover::before {
@@ -226,6 +227,7 @@ html {
     transparent
   );
   animation: shimmer 3s infinite;
+  pointer-events: none;
 }
 
 @keyframes shimmer {

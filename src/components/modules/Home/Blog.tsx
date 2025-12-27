@@ -105,14 +105,14 @@ export function BlogSection({
             transition={{ duration: 0.45 }}
             className="text-center"
           >
-            <Link href="/blogs">
+            {/* <Link href="/blogs">
               <Button variant="ghost">
                 <span className="inline-flex items-center gap-2">
                   <span>View All Articles</span>
                   <ArrowRight className="w-4 h-4" />
                 </span>
               </Button>
-            </Link>
+            </Link> */}
           </motion.div>
         )}
       </div>
