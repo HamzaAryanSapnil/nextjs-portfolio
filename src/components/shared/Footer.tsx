@@ -149,7 +149,6 @@ export function Footer({
     { label: "About Me", href: "/#about" },
     { label: "Skills", href: "/#skills" },
     { label: "Projects", href: "/#projects" },
-    { label: "Blogs", href: "/#blogs" },
     { label: "Contact", href: "/#contact" },
   ],
   contactInfo = {
