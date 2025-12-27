@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Ubuntu } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReduxProvider from "@/redux/provider/ReduxProvider";
@@ -111,6 +111,12 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   category: "Portfolio",
+  other: {
+    // Google Search Console verification
+    // Replace 'YOUR_VERIFICATION_CODE' with the actual code from Google Search Console
+    "google-site-verification":
+      process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || "",
+  },
 };
 
 export default function RootLayout({
