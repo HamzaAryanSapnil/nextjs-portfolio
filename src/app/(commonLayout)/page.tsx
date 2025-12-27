@@ -199,7 +199,7 @@ export default async function Home() {
       <AboutMe />
       <Skills enableAnimations={true} heading="Technical Skills" />
       <Projects projects={projects} showViewAll viewAllUrl="/projects" />;
-      <BlogSection posts={blogs?.data || []} />
+      {/* <BlogSection posts={blogs?.data || []} /> */}
       <Contact />
     </>
   );
