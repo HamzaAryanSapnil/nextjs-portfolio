@@ -1,14 +1,71 @@
+import type { Metadata } from "next";
 import AboutMe from "@/components/modules/Home/About";
-import { BlogSection } from "@/components/modules/Home/Blog";
 import Hero from "@/components/modules/Home/Hero";
 import { Projects } from "@/components/modules/Home/Project";
 import Skills from "@/components/modules/Home/Skills";
 import Contact from "@/components/modules/Home/Contact";
-
+import StructuredData from "@/components/shared/StructuredData";
 
 // Force static generation for homepage
 export const dynamic = "force-static";
 export const revalidate = false; // Static page, no revalidation
+
+// SEO Metadata for Homepage
+export const metadata: Metadata = {
+  title: "Hamza Aryan Sapnil - Full-Stack MERN Developer | Portfolio",
+  description:
+    "Full-Stack MERN Developer specializing in Next.js, React.js, and TypeScript. Building modern, scalable web applications. Expert in Express.js, PostgreSQL, Prisma, and AI integration. Based in Tangail, Dhaka, Bangladesh.",
+  keywords: [
+    "Hamza Aryan Sapnil",
+    "Full-Stack Developer",
+    "MERN Developer",
+    "Next.js Developer",
+    "React Developer",
+    "TypeScript Developer",
+    "Web Developer Bangladesh",
+    "Express.js Developer",
+    "PostgreSQL Developer",
+    "Prisma ORM",
+    "AI Integration",
+    "OpenRouter SDK",
+    "n8n Automation",
+    "Portfolio",
+    "Web Development",
+    "Software Developer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer Bangladesh",
+    "Tangail Developer",
+    "Dhaka Developer",
+  ],
+  openGraph: {
+    title: "Hamza Aryan Sapnil - Full-Stack MERN Developer",
+    description:
+      "Full-Stack MERN Developer specializing in Next.js, React.js, and TypeScript. Building modern, scalable web applications with expertise in Express.js, PostgreSQL, Prisma, and AI integration.",
+    url: "/",
+    siteName: "Hamza Aryan Sapnil - Portfolio",
+    images: [
+      {
+        url: "/profile.png",
+        width: 1200,
+        height: 630,
+        alt: "Hamza Aryan Sapnil - Full-Stack MERN Developer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hamza Aryan Sapnil - Full-Stack MERN Developer",
+    description:
+      "Full-Stack MERN Developer specializing in Next.js, React.js, and TypeScript. Building modern, scalable web applications.",
+    images: ["/profile.png"],
+  },
+  alternates: {
+    canonical: "/",
+  },
+};
 
 import travelBuddyImage from "@/assets/images/travelBuddy.jpg";
 import healthCareImage from "@/assets/images/healthCare.png";
@@ -173,6 +230,7 @@ export interface BlogPost {
 export default async function Home() {
   return (
     <>
+      <StructuredData />
       <Hero />
       <AboutMe />
       <Skills enableAnimations={true} heading="Technical Skills" />
